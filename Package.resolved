@@ -1,0 +1,50 @@
+{
+  "pins" : [
+    {
+      "identity" : "devicekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/devicekit/DeviceKit",
+      "state" : {
+        "revision" : "20e0991f3975916ab0f6d58db84d8bc64f883537",
+        "version" : "4.7.0"
+      }
+    },
+    {
+      "identity" : "inputbaraccessoryview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nathantannar4/InputBarAccessoryView",
+      "state" : {
+        "revision" : "0c4431a7f765ecb81dd97615023ff858bf65f89c",
+        "version" : "6.1.1"
+      }
+    },
+    {
+      "identity" : "letteravatarkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vpeschenkov/LetterAvatarKit",
+      "state" : {
+        "revision" : "fe5af34383384668dcd28525bd62934eab229d4a",
+        "version" : "1.2.5"
+      }
+    },
+    {
+      "identity" : "messagekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MessageKit/MessageKit",
+      "state" : {
+        "revision" : "14bfa7eb9f93267c3d7b8cdf58615bba27be672a",
+        "version" : "4.1.1"
+      }
+    },
+    {
+      "identity" : "swiftmessages",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftKickMobile/SwiftMessages",
+      "state" : {
+        "revision" : "b29dd21090b708aa0ae9ecbaf6e2d0487028dc3f",
+        "version" : "9.0.6"
+      }
+    }
+  ],
+  "version" : 2
+}

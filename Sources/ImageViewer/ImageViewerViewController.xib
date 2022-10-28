@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImageViewerViewController">
+            <connections>
+                <outlet property="closeButton" destination="WcV-tY-wpl" id="loq-1a-3fT"/>
+                <outlet property="imageView" destination="Vfe-p1-40z" id="uXu-zW-nDY"/>
+                <outlet property="scrollView" destination="toJ-hW-V4t" id="x8q-Le-HoS"/>
+                <outlet property="view" destination="VES-2F-pLM" id="6nJ-cd-G7W"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="VES-2F-pLM">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="10" translatesAutoresizingMaskIntoConstraints="NO" id="toJ-hW-V4t">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vfe-p1-40z">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Vfe-p1-40z" firstAttribute="bottom" secondItem="cYd-Rf-1h0" secondAttribute="bottom" id="31u-4P-t2m"/>
+                        <constraint firstItem="Vfe-p1-40z" firstAttribute="height" secondItem="4rX-3o-Kp8" secondAttribute="height" id="3Ji-50-09T"/>
+                        <constraint firstItem="Vfe-p1-40z" firstAttribute="width" secondItem="4rX-3o-Kp8" secondAttribute="width" id="Fmq-SQ-YQ7"/>
+                        <constraint firstItem="Vfe-p1-40z" firstAttribute="top" secondItem="cYd-Rf-1h0" secondAttribute="top" id="Gwf-Rm-8dI"/>
+                        <constraint firstItem="Vfe-p1-40z" firstAttribute="leading" secondItem="cYd-Rf-1h0" secondAttribute="leading" id="V21-7q-jL6"/>
+                        <constraint firstItem="Vfe-p1-40z" firstAttribute="trailing" secondItem="cYd-Rf-1h0" secondAttribute="trailing" id="evj-OG-3yV"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="cYd-Rf-1h0"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="4rX-3o-Kp8"/>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WcV-tY-wpl">
+                    <rect key="frame" x="310" y="69" width="67" height="35"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Close"/>
+                    <connections>
+                        <action selector="onCloseTap:" destination="-1" eventType="touchUpInside" id="Oag-Nw-MeO"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="waa-9k-r80"/>
+            <color key="backgroundColor" name="AppBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="toJ-hW-V4t" firstAttribute="leading" secondItem="waa-9k-r80" secondAttribute="leading" id="A4j-tU-12s"/>
+                <constraint firstItem="WcV-tY-wpl" firstAttribute="top" secondItem="waa-9k-r80" secondAttribute="top" constant="10" id="HnE-T7-LSA"/>
+                <constraint firstAttribute="bottom" secondItem="toJ-hW-V4t" secondAttribute="bottom" id="Ums-O2-cJK"/>
+                <constraint firstItem="toJ-hW-V4t" firstAttribute="top" secondItem="VES-2F-pLM" secondAttribute="top" id="beA-cf-5Xx"/>
+                <constraint firstItem="waa-9k-r80" firstAttribute="trailing" secondItem="WcV-tY-wpl" secondAttribute="trailing" constant="16" id="d6q-BF-LTV"/>
+                <constraint firstItem="toJ-hW-V4t" firstAttribute="trailing" secondItem="waa-9k-r80" secondAttribute="trailing" id="qtQ-0L-J7C"/>
+            </constraints>
+            <point key="canvasLocation" x="86.25954198473282" y="20.422535211267608"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="AppBackgroundColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
