@@ -84,7 +84,6 @@ class Chat2AppViewModel {
         Task(priority: .high) { [weak self] in
             guard let self = self else {return}
             let result = await chat2AppService.chatInfo(text: text)
-            print(result)
             switch result {
             case .success(let chatInfo):
                 self.chatInfo = chatInfo

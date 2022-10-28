@@ -25,7 +25,6 @@ extension Chat2AppViewController: MessageCellDelegate {
             vc.image = image
             self.navigationController?.present(vc, animated: true)
         }
-        print("Image tapped")
     }
 
     func didTapCellTopLabel(in _: MessageCollectionViewCell) {
@@ -66,7 +65,6 @@ extension Chat2AppViewController: MessageCellDelegate {
     
     func didSelectURL(_ url: URL) {
         UIApplication.shared.open(url)
-        print("Selected URL \(url.absoluteString)")
     }
     
     func didSelectPhoneNumber(_ phoneNumber: String) {
