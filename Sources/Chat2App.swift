@@ -16,6 +16,7 @@ public class Chat2App {
     var appId: String = ""
     var chatUserName: String = ""
     var chatUserId: String = ""
+    var userData: [String:String]? = nil
     public var apnsToken: Data? {
         didSet {
             if let apnsToken = apnsToken {
@@ -42,9 +43,10 @@ public class Chat2App {
         self.appId = appId
     }
     
-    public func setChatUser(name: String, uniqId: String){
+    public func setChatUser(name: String, uniqId: String, userData: [String:String]?){
         self.chatUserName = name
         self.chatUserId = uniqId
+        self.userData = userData
     }
     
     public func presentMessenger(from viewController: UIViewController){
@@ -63,6 +65,16 @@ public class Chat2App {
             return chatUnreadMessagesCnt.unreadMessagesCnt
         case .failure(_):
             return 0
+        }
+    }
+    
+    public func sendUserData(userData: [String:String]) async -> Bool {
+        let result = await self.networkService.sendUserData(userData: userData)
+        switch result {
+        case .success(_):
+            return true
+        case .failure(_):
+            return false
         }
     }
     

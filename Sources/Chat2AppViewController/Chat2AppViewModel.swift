@@ -56,6 +56,13 @@ class Chat2AppViewModel {
         }
     }
     
+    func sendUserData(){
+        guard let userData = Chat2App.shared.userData else { return }
+        Task(priority: .high) {
+            _ = await Chat2App.shared.sendUserData(userData: userData)
+        }
+    }
+    
     var lastMessageId: Int {
         guard let chatInfo = self.chatInfo else {
             return 0

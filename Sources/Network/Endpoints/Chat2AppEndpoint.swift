@@ -13,6 +13,7 @@ enum Chat2AppEndpoint {
     case sendImage(text: String?, imageData: Data)
     case unreadMessagesCnt
     case lastMessageId
+    case userData(userData: [String:String])
 }
 
 extension Chat2AppEndpoint: Endpoint {
@@ -27,6 +28,8 @@ extension Chat2AppEndpoint: Endpoint {
             return "/api/UnreadMessagesCnt"
         case .lastMessageId:
             return "/api/LastMessageId"
+        case .userData:
+            return "/api/UserData"
         }
     }
 
@@ -40,6 +43,8 @@ extension Chat2AppEndpoint: Endpoint {
             return .get
         case .lastMessageId:
             return .get
+        case .userData:
+            return .post
         }
     }
 
@@ -86,6 +91,8 @@ extension Chat2AppEndpoint: Endpoint {
                 ]
             }
             return nil
+        case .userData(let userData):
+            return userData
         default:
             return nil
         }

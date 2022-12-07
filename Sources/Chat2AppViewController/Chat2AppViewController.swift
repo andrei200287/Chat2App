@@ -134,6 +134,7 @@ class Chat2AppViewController: MessagesViewController {
                 self.messagesCollectionView.scrollToLastItem(animated: false)
             }
         }
+        self.viewModel.sendUserData()
         self.addCloseButton()
         self.setupTimer()
     }

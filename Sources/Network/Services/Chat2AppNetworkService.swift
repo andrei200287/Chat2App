@@ -12,6 +12,7 @@ protocol Chat2AppNetworkServiceable {
     func sendImage(text: String?, imageData: Data) async -> Result<ChatInfo, RequestError>
     func unreadMessagesCnt() async -> Result<ChatUnreadMessagesCnt, RequestError>
     func lastMessageId() async -> Result<LastMessageId, RequestError>
+    func sendUserData(userData: [String: String]) async -> Result<EmptyModel, RequestError>
 }
 
 struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
@@ -34,6 +35,11 @@ struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
     func lastMessageId() async -> Result<LastMessageId, RequestError>{
         let endpoint = Chat2AppEndpoint.lastMessageId
         return await sendRequest(endpoint: endpoint, responseModel: LastMessageId.self)
+    }
+    
+    func sendUserData(userData: [String: String]) async -> Result<EmptyModel, RequestError>{
+        let endpoint = Chat2AppEndpoint.userData(userData: userData)
+        return await sendRequest(endpoint: endpoint, responseModel: EmptyModel.self)
     }
     
 }
