@@ -17,6 +17,7 @@ public class Chat2App {
     var chatUserName: String = ""
     var chatUserId: String = ""
     var userData: [String:String]? = nil
+    var accountStatus: AccountStatus? = nil
     public var apnsToken: Data? {
         didSet {
             if let apnsToken = apnsToken {
@@ -38,9 +39,22 @@ public class Chat2App {
         Chat2AppNetworkService()
     }()
     
-    public func setApiKeyForAppId(apiKey: String, appId: String){
+    public func setApiKeyForAppId(apiKey: String, appId: String) {
         self.apiKey = apiKey
         self.appId = appId
+        Task {
+            let result = await self.networkService.accountStatus()
+            switch result {
+            case .success(let accountStatus):
+                self.accountStatus = accountStatus.status
+                if self.accountStatus != .active {
+                    let accountStatusString = self.accountStatus?.rawValue ?? "nil"
+                    print("Chat2App: check account status: \(accountStatusString)")
+                }
+            case .failure(_):
+                break
+            }
+        }
     }
     
     public func setChatUser(name: String, uniqId: String, userData: [String:String]?){
@@ -50,6 +64,10 @@ public class Chat2App {
     }
     
     public func presentMessenger(from viewController: UIViewController){
+        if self.accountStatus != .active {
+            print("Chat2App: your account status: \(String(describing: self.accountStatus)). To show the chat, the account must be in the status \(AccountStatus.active.rawValue)")
+            return
+        }
         let vc = Chat2AppViewController()
         let nav = UINavigationController(rootViewController: vc)
         vc.viewModel = Chat2AppViewModel(chat2AppService: self.networkService, chatUserName: self.chatUserName, chatUserId: self.chatUserId)

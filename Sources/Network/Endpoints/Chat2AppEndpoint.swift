@@ -14,6 +14,7 @@ enum Chat2AppEndpoint {
     case unreadMessagesCnt
     case lastMessageId
     case userData(userData: [String:String])
+    case accountStatus
 }
 
 extension Chat2AppEndpoint: Endpoint {
@@ -30,6 +31,8 @@ extension Chat2AppEndpoint: Endpoint {
             return "/api/LastMessageId"
         case .userData:
             return "/api/UserData"
+        case .accountStatus:
+            return "/api/AccountStatus"
         }
     }
 
@@ -45,6 +48,8 @@ extension Chat2AppEndpoint: Endpoint {
             return .get
         case .userData:
             return .post
+        case .accountStatus:
+            return .get
         }
     }
 

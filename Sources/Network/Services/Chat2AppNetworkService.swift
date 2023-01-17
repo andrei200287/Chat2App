@@ -13,9 +13,16 @@ protocol Chat2AppNetworkServiceable {
     func unreadMessagesCnt() async -> Result<ChatUnreadMessagesCnt, RequestError>
     func lastMessageId() async -> Result<LastMessageId, RequestError>
     func sendUserData(userData: [String: String]) async -> Result<EmptyModel, RequestError>
+    func accountStatus() async -> Result<AccountStatusModel, RequestError>
 }
 
 struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
+    
+    func accountStatus() async -> Result<AccountStatusModel, RequestError>{
+        let endpoint = Chat2AppEndpoint.accountStatus
+        return await sendRequest(endpoint: endpoint, responseModel: AccountStatusModel.self)
+    }
+    
     
     func chatInfo(text: String?) async -> Result<ChatInfo, RequestError> {
         let endpoint = Chat2AppEndpoint.chatInfo(text: text)
