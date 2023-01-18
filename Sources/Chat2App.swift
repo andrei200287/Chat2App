@@ -18,6 +18,9 @@ public class Chat2App {
     var chatUserId: String = ""
     var userData: [String:String]? = nil
     var accountStatus: AccountStatus? = nil
+    public var operatorName: String = "Operator"
+    public var firstMessageText: String = ""
+    
     public var apnsToken: Data? {
         didSet {
             if let apnsToken = apnsToken {
@@ -61,6 +64,16 @@ public class Chat2App {
         self.chatUserName = name
         self.chatUserId = uniqId
         self.userData = userData
+    }
+    
+    public func addMessageFromOperator(text: String) async -> Bool{
+        let result = await self.networkService.addMessageFromOperator(text: text)
+        switch result {
+        case .success(_):
+            return true
+        case .failure(_):
+            return false
+        }
     }
     
     public func presentMessenger(from viewController: UIViewController){

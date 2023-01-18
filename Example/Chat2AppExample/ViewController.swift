@@ -13,7 +13,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        Chat2App.shared.setChatUser(name: "User 3", uniqId: "111")
+        Chat2App.shared.setChatUser(name: "User 26", uniqId: "123456", userData: ["foo":"bar"])
+        Task {
+            await Chat2App.shared.addMessageFromOperator(text: "Your message")
+        }
+        
     }
     
     @IBAction func showChatTap(_ sender: Any) {

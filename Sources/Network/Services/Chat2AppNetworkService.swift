@@ -8,15 +8,21 @@
 import Foundation
 
 protocol Chat2AppNetworkServiceable {
-    func chatInfo(text: String?) async -> Result<ChatInfo, RequestError>
+    func chatInfo(text: String?, firstMessageText: String?) async -> Result<ChatInfo, RequestError>
     func sendImage(text: String?, imageData: Data) async -> Result<ChatInfo, RequestError>
     func unreadMessagesCnt() async -> Result<ChatUnreadMessagesCnt, RequestError>
     func lastMessageId() async -> Result<LastMessageId, RequestError>
     func sendUserData(userData: [String: String]) async -> Result<EmptyModel, RequestError>
     func accountStatus() async -> Result<AccountStatusModel, RequestError>
+    func addMessageFromOperator(text: String) async -> Result<EmptyModel, RequestError>
 }
 
 struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
+    
+    func addMessageFromOperator(text: String) async -> Result<EmptyModel, RequestError> {
+        let endpoint = Chat2AppEndpoint.addMessageFromOperator(text: text, firstMessageText: Chat2App.shared.firstMessageText)
+        return await sendRequest(endpoint: endpoint, responseModel: EmptyModel.self)
+    }
     
     func accountStatus() async -> Result<AccountStatusModel, RequestError>{
         let endpoint = Chat2AppEndpoint.accountStatus
@@ -24,8 +30,8 @@ struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
     }
     
     
-    func chatInfo(text: String?) async -> Result<ChatInfo, RequestError> {
-        let endpoint = Chat2AppEndpoint.chatInfo(text: text)
+    func chatInfo(text: String?, firstMessageText: String?) async -> Result<ChatInfo, RequestError> {
+        let endpoint = Chat2AppEndpoint.chatInfo(text: text, firstMessageText: firstMessageText)
         return await sendRequest(endpoint: endpoint, responseModel: ChatInfo.self)
     }
     

@@ -48,7 +48,7 @@ extension HTTPClient {
                 (endpoint.imageBody == nil) ?
                     try await URLSession.shared.data(for: request) :
                     try await URLSession.shared.upload(for: request, from: endpoint.imageBody!)
-            //print("data = \(String(bytes: data, encoding: .utf8)), response = \(response), request = \(request)")
+            print("data = \(String(bytes: data, encoding: .utf8)), response = \(response), request = \(request)")
             guard let response = response as? HTTPURLResponse else {
                 return .failure(.noResponse)
             }

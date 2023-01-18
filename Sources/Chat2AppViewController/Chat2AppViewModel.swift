@@ -44,7 +44,8 @@ class Chat2AppViewModel {
     func loadChatInfo(completion: @escaping () -> Void){
         Task(priority: .high) { [weak self] in
             guard let self = self else {return}
-            let result = await chat2AppService.chatInfo(text: nil)
+            let result = await chat2AppService.chatInfo(text: nil, firstMessageText: Chat2App.shared
+                .firstMessageText)
             switch result {
             case .success(let chatInfo):
                 self.chatInfo = chatInfo
@@ -90,7 +91,7 @@ class Chat2AppViewModel {
     func sendMessage(text: String, completion: @escaping () -> Void){
         Task(priority: .high) { [weak self] in
             guard let self = self else {return}
-            let result = await chat2AppService.chatInfo(text: text)
+            let result = await chat2AppService.chatInfo(text: text, firstMessageText: nil)
             switch result {
             case .success(let chatInfo):
                 self.chatInfo = chatInfo

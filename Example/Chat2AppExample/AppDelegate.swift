@@ -12,7 +12,9 @@ import Chat2App
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        Chat2App.shared.setApiKeyForAppId(apiKey: "msdcjnsdcskjcjnfjidnij", appId: "2")
+        Chat2App.shared.setApiKeyForAppId(apiKey: Constants.apiKey, appId: Constants.appId)
+        Chat2App.shared.operatorName = "Andrew"
+        Chat2App.shared.firstMessageText = "Welcome to our chat support! We're here to assist you with any questions or issues you may have. Please let us know how we can help you today."
         self.registerForPushNotifications()
         return true
     }

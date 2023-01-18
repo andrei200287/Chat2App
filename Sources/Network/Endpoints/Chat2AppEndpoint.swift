@@ -9,12 +9,13 @@ import Foundation
 import DeviceKit
 
 enum Chat2AppEndpoint {
-    case chatInfo(text: String?)
+    case chatInfo(text: String?, firstMessageText: String?)
     case sendImage(text: String?, imageData: Data)
     case unreadMessagesCnt
     case lastMessageId
     case userData(userData: [String:String])
     case accountStatus
+    case addMessageFromOperator(text: String, firstMessageText: String?)
 }
 
 extension Chat2AppEndpoint: Endpoint {
@@ -33,6 +34,8 @@ extension Chat2AppEndpoint: Endpoint {
             return "/api/UserData"
         case .accountStatus:
             return "/api/AccountStatus"
+        case .addMessageFromOperator:
+            return "/api/AddMessageFromOperator"
         }
     }
 
@@ -50,6 +53,8 @@ extension Chat2AppEndpoint: Endpoint {
             return .post
         case .accountStatus:
             return .get
+        case .addMessageFromOperator:
+            return .post
         }
     }
 
@@ -89,15 +94,25 @@ extension Chat2AppEndpoint: Endpoint {
     
     var body: [String: String]? {
         switch self {
-        case .chatInfo(let text):
+        case .chatInfo(let text, let firstMessageText):
             if let text = text {
                 return [
                     "text": text
+                ]
+            } else if let firstMessageText = firstMessageText {
+                return [
+                    "first_message_text": firstMessageText
                 ]
             }
             return nil
         case .userData(let userData):
             return userData
+        case .addMessageFromOperator(let text, let firstMessageText):
+            return [
+                "text": text,
+                "first_message_text": firstMessageText ?? ""
+            ]
+        
         default:
             return nil
         }
