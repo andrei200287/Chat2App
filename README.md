@@ -4,7 +4,7 @@
 
 Simple and modern customer support platform designed to be as convenient as possible. Get started in minutes.
 
-Sign up to [get started for free](https://chat2app.com/SignUp).
+Sign up to [get started for free](https://chat2app.com).
 
 ## Chat2App.framework
 *Chat2App* is the client for the [Chat2App](https://chat2app.com/) live customer chat platform. It's 100% `Swift`.
@@ -19,7 +19,7 @@ Sign up to [get started for free](https://chat2app.com/SignUp).
 ## Quickstart Guide
 
 ## 1. Create a Chat2App Account
-Sign up for a new Chat2App account [here](https://chat2app.com/).
+Sign up for a new Chat2App account [here](https://chat2app.com/SignUp).
 
 ## 2. Add your app
 Сlick on the button 'Add new app' [here](https://chat2app.com/client/apps) and fill out the form for adding a new app:
