@@ -1,6 +1,9 @@
 <h3 align="center">Best Live Customer Chat Platform for iOS apps</h3>
 
+
 [![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-orange.svg)](https://docs.revenuecat.com/docs/ios#section-install-via-swift-package-manager)
+
+<p align="center"><img src="https://user-images.githubusercontent.com/837480/216867678-f8bc27da-9bf3-45ca-98a0-2dce131e6245.png"  width="300"></p>
 
 Simple and modern customer support platform designed to be as convenient as possible. Get started in minutes.
 
@@ -15,6 +18,10 @@ Sign up to [get started for free](https://chat2app.com).
 | --- | --- |
 | iOS | 15.0+ |
 
+
+## Use Cases
+
+https://user-images.githubusercontent.com/837480/216868047-1f6d2c91-4522-4907-8fb6-37cc1e082b1c.mp4
 
 ## Quickstart Guide
 
