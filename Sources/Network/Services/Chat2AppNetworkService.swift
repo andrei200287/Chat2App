@@ -15,6 +15,8 @@ protocol Chat2AppNetworkServiceable {
     func sendUserData(userData: [String: String]) async -> Result<EmptyModel, RequestError>
     func accountStatus() async -> Result<AccountStatusModel, RequestError>
     func addMessageFromOperator(text: String) async -> Result<EmptyModel, RequestError>
+    func sendTemplateMessageIfNeeded(templateName: String) async -> Result<ChatUnreadMessagesCnt, RequestError>
+    func didUserTapPromoCodeRecently() async -> Result<ChatDidUserTapPromoCodeRecentlyResult, RequestError>
 }
 
 struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
@@ -27,6 +29,16 @@ struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
     func accountStatus() async -> Result<AccountStatusModel, RequestError>{
         let endpoint = Chat2AppEndpoint.accountStatus
         return await sendRequest(endpoint: endpoint, responseModel: AccountStatusModel.self)
+    }
+    
+    func sendTemplateMessageIfNeeded(templateName: String) async -> Result<ChatUnreadMessagesCnt, RequestError>{
+        let endpoint = Chat2AppEndpoint.sendTemplateMessageIfNeeded(templateName: templateName)
+        return await sendRequest(endpoint: endpoint, responseModel: ChatUnreadMessagesCnt.self)
+    }
+    
+    func didUserTapPromoCodeRecently() async ->Result<ChatDidUserTapPromoCodeRecentlyResult, RequestError>{
+        let endpoint = Chat2AppEndpoint.didUserTapPromoCodeRecently
+        return await sendRequest(endpoint: endpoint, responseModel: ChatDidUserTapPromoCodeRecentlyResult.self)
     }
     
     

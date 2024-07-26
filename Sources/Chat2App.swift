@@ -12,6 +12,92 @@ public class Chat2App {
     
     public static let shared = Chat2App()
     
+    public enum Language: String {
+        case ar = "Arabic"
+        case bg = "Bulgarian"
+        case zh = "Chinese (Simplified)"
+        case zhHant = "Chinese (Traditional)"
+        case hr = "Croatian"
+        case cs = "Czech"
+        case da = "Danish"
+        case nl = "Dutch"
+        case en = "English"
+        case et = "Estonian"
+        case fi = "Finnish"
+        case fr = "French"
+        case de = "German"
+        case el = "Greek"
+        case he = "Hebrew"
+        case hi = "Hindi"
+        case hu = "Hungarian"
+        case id = "Indonesian"
+        case it = "Italian"
+        case ja = "Japanese"
+        case ko = "Korean"
+        case lv = "Latvian"
+        case lt = "Lithuanian"
+        case ms = "Malay"
+        case nb = "Norwegian"
+        case pl = "Polish"
+        case pt = "Portuguese"
+        case ro = "Romanian"
+        case ru = "Russian"
+        case sk = "Slovak"
+        case sl = "Slovenian"
+        case es = "Spanish"
+        case sv = "Swedish"
+        case th = "Thai"
+        case tr = "Turkish"
+        case uk = "Ukrainian"
+        case vi = "Vietnamese"
+        
+        var langName: String {
+            return self.rawValue
+        }
+        
+        var code: String {
+            switch self {
+            case .ar: return "ar"
+            case .bg: return "bg"
+            case .zh: return "zh"
+            case .zhHant: return "zh-Hant"
+            case .hr: return "hr"
+            case .cs: return "cs"
+            case .da: return "da"
+            case .nl: return "nl"
+            case .en: return "en"
+            case .et: return "et"
+            case .fi: return "fi"
+            case .fr: return "fr"
+            case .de: return "de"
+            case .el: return "el"
+            case .he: return "he"
+            case .hi: return "hi"
+            case .hu: return "hu"
+            case .id: return "id"
+            case .it: return "it"
+            case .ja: return "ja"
+            case .ko: return "ko"
+            case .lv: return "lv"
+            case .lt: return "lt"
+            case .ms: return "ms"
+            case .nb: return "nb"
+            case .pl: return "pl"
+            case .pt: return "pt"
+            case .ro: return "ro"
+            case .ru: return "ru"
+            case .sk: return "sk"
+            case .sl: return "sl"
+            case .es: return "es"
+            case .sv: return "sv"
+            case .th: return "th"
+            case .tr: return "tr"
+            case .uk: return "uk"
+            case .vi: return "vi"
+            }
+        }
+    }
+    
     var apiKey: String = ""
     var appId: String = ""
     var chatUserName: String = ""
@@ -20,6 +106,7 @@ public class Chat2App {
     var accountStatus: AccountStatus? = nil
     public var operatorName: String = "Operator"
     public var firstMessageText: String = ""
+    public var language: Language = .en
     
     public var apnsToken: Data? {
         didSet {
@@ -64,6 +151,26 @@ public class Chat2App {
         self.chatUserName = name
         self.chatUserId = uniqId
         self.userData = userData
+    }
+    
+    public func sendTemplateMessageIfNeeded(templateName: String) async -> Int{
+        let result = await self.networkService.sendTemplateMessageIfNeeded(templateName: templateName)
+        switch result {
+        case .success(let chatUnreadMessagesCnt):
+            return chatUnreadMessagesCnt.unreadMessagesCnt
+        case .failure(_):
+            return 0
+        }
+    }
+    
+    public func didUserTapPromoCodeRecently() async -> Bool {
+        let result = await self.networkService.didUserTapPromoCodeRecently()
+        switch result {
+        case .success(let model):
+            return model.didUserTapPromoCodeRecently
+        case .failure(_):
+            return false
+        }
     }
     
     public func addMessageFromOperator(text: String) async -> Bool{

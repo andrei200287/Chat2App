@@ -16,6 +16,8 @@ enum Chat2AppEndpoint {
     case userData(userData: [String:String])
     case accountStatus
     case addMessageFromOperator(text: String, firstMessageText: String?)
+    case sendTemplateMessageIfNeeded(templateName: String)
+    case didUserTapPromoCodeRecently
 }
 
 extension Chat2AppEndpoint: Endpoint {
@@ -36,6 +38,10 @@ extension Chat2AppEndpoint: Endpoint {
             return "/api/AccountStatus"
         case .addMessageFromOperator:
             return "/api/AddMessageFromOperator"
+        case .sendTemplateMessageIfNeeded:
+            return "/api/SendTemplateMessageIfNeeded"
+        case .didUserTapPromoCodeRecently:
+            return "/api/DidUserTapPromoCodeRecently"
         }
     }
 
@@ -55,6 +61,10 @@ extension Chat2AppEndpoint: Endpoint {
             return .get
         case .addMessageFromOperator:
             return .post
+        case .sendTemplateMessageIfNeeded:
+            return .post
+        case .didUserTapPromoCodeRecently:
+            return .post
         }
     }
 
@@ -65,6 +75,7 @@ extension Chat2AppEndpoint: Endpoint {
         let chatUserName = Chat2App.shared.chatUserName
         let chatUserId = Chat2App.shared.chatUserId
         let locale = Chat2App.shared.locale
+        let languageCode = Chat2App.shared.language.code
         let pushToken = Chat2App.shared.apnsTokenString ?? ""
         switch self {
         case .sendImage:
@@ -76,6 +87,7 @@ extension Chat2AppEndpoint: Endpoint {
                 "pushToken": pushToken,
                 "chatUserName": chatUserName,
                 "chatLocale": locale,
+                "languageCode": languageCode,
                 "chatUserId": chatUserId
             ]
         default:
@@ -87,6 +99,7 @@ extension Chat2AppEndpoint: Endpoint {
                 "pushToken": pushToken,
                 "chatUserName": chatUserName,
                 "chatLocale": locale,
+                "languageCode": languageCode,
                 "chatUserId": chatUserId
             ]
         }
@@ -111,6 +124,11 @@ extension Chat2AppEndpoint: Endpoint {
             return [
                 "text": text,
                 "first_message_text": firstMessageText ?? ""
+            ]
+            
+        case .sendTemplateMessageIfNeeded(let templateName):
+            return [
+                "templateName": templateName
             ]
         
         default:
