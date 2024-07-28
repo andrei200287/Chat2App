@@ -120,7 +120,7 @@ public class Chat2App {
         }
     }
     var apnsTokenString: String?
-    var fcmToken: String?
+    public var fcmToken: String?
     var locale: String {
         Locale.current.identifier
     }
