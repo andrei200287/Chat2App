@@ -77,6 +77,7 @@ extension Chat2AppEndpoint: Endpoint {
         let locale = Chat2App.shared.locale
         let languageCode = Chat2App.shared.language.code
         let pushToken = Chat2App.shared.apnsTokenString ?? ""
+        let fcmToken = Chat2App.shared.fcmToken ?? ""
         switch self {
         case .sendImage:
             return [
@@ -85,6 +86,7 @@ extension Chat2AppEndpoint: Endpoint {
                 "Content-Type": "multipart/form-data; boundary=\(MultipartFormDataRequest.boundary)",
                 "Device": "\(device)",
                 "pushToken": pushToken,
+                "fcmToken": fcmToken,
                 "chatUserName": chatUserName,
                 "chatLocale": locale,
                 "languageCode": languageCode,
@@ -97,6 +99,7 @@ extension Chat2AppEndpoint: Endpoint {
                 "Content-Type": "application/json;charset=utf-8",
                 "Device": "\(device)",
                 "pushToken": pushToken,
+                "fcmToken": fcmToken,
                 "chatUserName": chatUserName,
                 "chatLocale": locale,
                 "languageCode": languageCode,
