@@ -24,6 +24,6 @@ extension Endpoint {
     }
 
     var host: String {
-        return "chat2app.com"
+        return "api.chat2app.com"
     }
 }
