@@ -228,6 +228,13 @@ public class Chat2App {
         }
     }
     
+    public func sendUserData() {
+        guard let userData = Chat2App.shared.userData else { return }
+        Task(priority: .high) {
+            _ = await Chat2App.shared.sendUserData(userData: userData)
+        }
+    }
+    
     public func handlePushNotification(userInfo: [AnyHashable : Any]) {
         guard let service = userInfo["service"] as? String else {
             return
