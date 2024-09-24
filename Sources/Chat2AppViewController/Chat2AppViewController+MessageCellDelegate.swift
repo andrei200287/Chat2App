@@ -64,7 +64,7 @@ extension Chat2AppViewController: MessageCellDelegate {
     }
     
     func didSelectURL(_ url: URL) {
-        UIApplication.shared.open(url)
+        UIApplication.shared.open(url, options: [:])
     }
     
     func didSelectPhoneNumber(_ phoneNumber: String) {
