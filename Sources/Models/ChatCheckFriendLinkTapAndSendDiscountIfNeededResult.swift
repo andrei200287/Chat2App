@@ -6,6 +6,6 @@
 //
 
 import Foundation
-struct ChatDidUserTapPromoCodeRecentlyResult: Codable {
+struct ChatCheckFriendLinkTapAndSendDiscountIfNeededResult: Codable {
     let didUserTapPromoCodeRecently: Bool
 }

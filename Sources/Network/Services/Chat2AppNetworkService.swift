@@ -15,12 +15,13 @@ protocol Chat2AppNetworkServiceable {
     func sendUserData(userData: [String: String]) async -> Result<EmptyModel, RequestError>
     func accountStatus() async -> Result<AccountStatusModel, RequestError>
     func addMessageFromOperator(text: String) async -> Result<EmptyModel, RequestError>
-    func sendTemplateMessageIfNeeded(templateName: String) async -> Result<ChatUnreadMessagesCnt, RequestError>
-    func didUserTapPromoCodeRecently() async -> Result<ChatDidUserTapPromoCodeRecentlyResult, RequestError>
+    func sendTemplateMessageIfNeeded(templateName: String) async -> Result<Bool, RequestError>
+    func checkFriendLinkTapAndSendDiscountIfNeeded() async -> Result<ChatCheckFriendLinkTapAndSendDiscountIfNeededResult, RequestError>
     func logEvent(name: String, value: Chat2App.EventValue) async -> Result<EmptyModel, RequestError>
 }
 
 struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
+    
     
     func addMessageFromOperator(text: String) async -> Result<EmptyModel, RequestError> {
         let endpoint = Chat2AppEndpoint.addMessageFromOperator(text: text, firstMessageText: Chat2App.shared.firstMessageText)
@@ -32,14 +33,14 @@ struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
         return await sendRequest(endpoint: endpoint, responseModel: AccountStatusModel.self)
     }
     
-    func sendTemplateMessageIfNeeded(templateName: String) async -> Result<ChatUnreadMessagesCnt, RequestError>{
+    func sendTemplateMessageIfNeeded(templateName: String) async -> Result<Bool, RequestError>{
         let endpoint = Chat2AppEndpoint.sendTemplateMessageIfNeeded(templateName: templateName)
-        return await sendRequest(endpoint: endpoint, responseModel: ChatUnreadMessagesCnt.self)
+        return await sendRequest(endpoint: endpoint, responseModel: Bool.self)
     }
     
-    func didUserTapPromoCodeRecently() async ->Result<ChatDidUserTapPromoCodeRecentlyResult, RequestError>{
-        let endpoint = Chat2AppEndpoint.didUserTapPromoCodeRecently
-        return await sendRequest(endpoint: endpoint, responseModel: ChatDidUserTapPromoCodeRecentlyResult.self)
+    func checkFriendLinkTapAndSendDiscountIfNeeded() async ->Result<ChatCheckFriendLinkTapAndSendDiscountIfNeededResult, RequestError>{
+        let endpoint = Chat2AppEndpoint.checkFriendLinkTapAndSendDiscountIfNeeded
+        return await sendRequest(endpoint: endpoint, responseModel: ChatCheckFriendLinkTapAndSendDiscountIfNeededResult.self)
     }
     
     

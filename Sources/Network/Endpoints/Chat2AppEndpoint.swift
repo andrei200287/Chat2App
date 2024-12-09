@@ -17,7 +17,7 @@ enum Chat2AppEndpoint {
     case accountStatus
     case addMessageFromOperator(text: String, firstMessageText: String?)
     case sendTemplateMessageIfNeeded(templateName: String)
-    case didUserTapPromoCodeRecently
+    case checkFriendLinkTapAndSendDiscountIfNeeded
     case logEvent(name: String, value: Chat2App.EventValue)
 }
 
@@ -41,7 +41,7 @@ extension Chat2AppEndpoint: Endpoint {
             return "/api/AddMessageFromOperator"
         case .sendTemplateMessageIfNeeded:
             return "/api/SendTemplateMessageIfNeeded"
-        case .didUserTapPromoCodeRecently:
+        case .checkFriendLinkTapAndSendDiscountIfNeeded:
             return "/api/DidUserTapPromoCodeRecently"
         case .logEvent:
             return "/api/LogEvent"
@@ -66,7 +66,7 @@ extension Chat2AppEndpoint: Endpoint {
             return .post
         case .sendTemplateMessageIfNeeded:
             return .post
-        case .didUserTapPromoCodeRecently:
+        case .checkFriendLinkTapAndSendDiscountIfNeeded:
             return .post
         case .logEvent:
             return .post

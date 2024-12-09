@@ -165,24 +165,28 @@ public class Chat2App {
         let _ = await self.networkService.logEvent(name: name, value: value)
     }
     
-    public func sendTemplateMessageIfNeeded(templateName: String) async -> Int{
+    public func sendTemplateMessageIfNeeded(templateName: String) async -> Bool{
         let result = await self.networkService.sendTemplateMessageIfNeeded(templateName: templateName)
         switch result {
-        case .success(let chatUnreadMessagesCnt):
-            return chatUnreadMessagesCnt.unreadMessagesCnt
+        case .success(let result):
+            return result
         case .failure(_):
-            return 0
+            return false
         }
     }
     
-    public func didUserTapPromoCodeRecently() async -> Bool {
-        let result = await self.networkService.didUserTapPromoCodeRecently()
+    public func checkFriendLinkTapAndSendDiscountIfNeeded() async -> Bool {
+        let result = await self.networkService.checkFriendLinkTapAndSendDiscountIfNeeded()
         switch result {
         case .success(let model):
             return model.didUserTapPromoCodeRecently
         case .failure(_):
             return false
         }
+    }
+    
+    public func sendFriendLinkMessage() async -> Bool {
+        return await self.sendTemplateMessageIfNeeded(templateName: "FriendLinkMessage")
     }
     
     public func addMessageFromOperator(text: String) async -> Bool{
