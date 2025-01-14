@@ -82,6 +82,7 @@ extension Chat2AppEndpoint: Endpoint {
         let locale = Chat2App.shared.locale
         let languageCode = Chat2App.shared.language.code
         let pushToken = Chat2App.shared.apnsTokenString ?? ""
+        let revenuecat_user_id = Chat2App.shared.revenuecat_user_id
         switch self {
         case .sendImage:
             return [
@@ -93,7 +94,8 @@ extension Chat2AppEndpoint: Endpoint {
                 "chatUserName": chatUserName,
                 "chatLocale": locale,
                 "languageCode": languageCode,
-                "chatUserId": chatUserId
+                "chatUserId": chatUserId,
+                "revenuecat_user_id": revenuecat_user_id
             ]
         default:
             return [
@@ -105,7 +107,8 @@ extension Chat2AppEndpoint: Endpoint {
                 "chatUserName": chatUserName,
                 "chatLocale": locale,
                 "languageCode": languageCode,
-                "chatUserId": chatUserId
+                "chatUserId": chatUserId,
+                "revenuecat_user_id": revenuecat_user_id
             ]
         }
     }

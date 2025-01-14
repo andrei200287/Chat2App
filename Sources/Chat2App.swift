@@ -107,6 +107,7 @@ public class Chat2App {
     public var operatorName: String = "Operator"
     public var firstMessageText: String = ""
     public var language: Language = .en
+    public var revenuecat_user_id: String = ""
     
     public var apnsToken: Data? {
         didSet {
