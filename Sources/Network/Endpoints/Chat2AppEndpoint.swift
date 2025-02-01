@@ -18,7 +18,6 @@ enum Chat2AppEndpoint {
     case addMessageFromOperator(text: String, firstMessageText: String?)
     case sendTemplateMessageIfNeeded(templateName: String)
     case checkFriendLinkTapAndSendDiscountIfNeeded
-    case logEvent(name: String, value: Chat2App.EventValue)
 }
 
 extension Chat2AppEndpoint: Endpoint {
@@ -43,8 +42,6 @@ extension Chat2AppEndpoint: Endpoint {
             return "/api/SendTemplateMessageIfNeeded"
         case .checkFriendLinkTapAndSendDiscountIfNeeded:
             return "/api/DidUserTapPromoCodeRecently"
-        case .logEvent:
-            return "/api/LogEvent"
         }
     }
 
@@ -67,8 +64,6 @@ extension Chat2AppEndpoint: Endpoint {
         case .sendTemplateMessageIfNeeded:
             return .post
         case .checkFriendLinkTapAndSendDiscountIfNeeded:
-            return .post
-        case .logEvent:
             return .post
         }
     }
@@ -139,24 +134,6 @@ extension Chat2AppEndpoint: Endpoint {
                 "templateName": templateName
             ]
             
-        case .logEvent(let name, let value):
-            let valueType: String
-            let valueString: String
-            switch value {
-                case .string(let stringValue):
-                    valueType = "string"
-                    valueString = stringValue
-                case .int(let intValue):
-                    valueType = "int"
-                    valueString = "\(intValue)"
-                case .date(let dateValue):
-                    valueType = "date"
-                    valueString = "\(dateValue.timeIntervalSince1970)"
-                case .double(let double):
-                    valueType = "double"
-                    valueString = String(format: "%.2f", double)
-            }
-            return ["name": name, "valueType":valueType, "valueString": valueString]
         
         default:
             return nil

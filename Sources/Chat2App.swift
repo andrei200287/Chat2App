@@ -154,18 +154,6 @@ public class Chat2App {
         self.userData = userData
     }
     
-    public enum EventValue {
-        case string(String)
-        case int(Int)
-        case date(Date)
-        case double(Double)
-    }
-    
-    //logEvent(name: "UserAge", value: .int(28))
-    public func logEvent(name: String, value: EventValue) async {
-        let _ = await self.networkService.logEvent(name: name, value: value)
-    }
-    
     public func sendTemplateMessageIfNeeded(templateName: String) async -> Bool{
         let result = await self.networkService.sendTemplateMessageIfNeeded(templateName: templateName)
         switch result {
