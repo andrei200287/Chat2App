@@ -17,6 +17,7 @@ protocol Chat2AppNetworkServiceable {
     func addMessageFromOperator(text: String) async -> Result<EmptyModel, RequestError>
     func sendTemplateMessageIfNeeded(templateName: String) async -> Result<Bool, RequestError>
     func checkFriendLinkTapAndSendDiscountIfNeeded() async -> Result<ChatCheckFriendLinkTapAndSendDiscountIfNeededResult, RequestError>
+    func logEvent(name: String, value: Chat2App.EventValue) async -> Result<EmptyModel, RequestError>
 }
 
 struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
@@ -65,6 +66,12 @@ struct Chat2AppNetworkService: HTTPClient, Chat2AppNetworkServiceable {
     
     func sendUserData(userData: [String: String]) async -> Result<EmptyModel, RequestError>{
         let endpoint = Chat2AppEndpoint.userData(userData: userData)
+        return await sendRequest(endpoint: endpoint, responseModel: EmptyModel.self)
+    }
+    
+
+    func logEvent(name: String, value: Chat2App.EventValue) async -> Result<EmptyModel, RequestError>{
+        let endpoint = Chat2AppEndpoint.logEvent(name: name, value: value)
         return await sendRequest(endpoint: endpoint, responseModel: EmptyModel.self)
     }
     
