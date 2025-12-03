@@ -16,7 +16,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/MessageKit/MessageKit", .upToNextMajor(from: "4.1.1")),
-        .package(url: "https://github.com/SwiftKickMobile/SwiftMessages", .upToNextMajor(from: "9.0.6")),
+        .package(url: "https://github.com/SwiftKickMobile/SwiftMessages", .upToNextMajor(from: "10.0.2")),
         .package(url: "https://github.com/vpeschenkov/LetterAvatarKit", .upToNextMajor(from: "1.2.5")),
         .package(url: "https://github.com/devicekit/DeviceKit", .upToNextMajor(from: "5.0.0")),
         .package(url: "https://github.com/onevcat/Kingfisher", .upToNextMajor(from: "7.4.1")),
