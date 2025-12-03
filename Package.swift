@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://github.com/SwiftKickMobile/SwiftMessages", .upToNextMajor(from: "10.0.2")),
         .package(url: "https://github.com/vpeschenkov/LetterAvatarKit", .upToNextMajor(from: "1.2.5")),
         .package(url: "https://github.com/devicekit/DeviceKit", .upToNextMajor(from: "5.0.0")),
-        .package(url: "https://github.com/onevcat/Kingfisher", .upToNextMajor(from: "7.4.1")),
+        .package(url: "https://github.com/onevcat/Kingfisher", .upToNextMajor(from: "8.6.2")),
         //
     ],
     targets: [
