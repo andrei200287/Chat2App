@@ -61,9 +61,8 @@ class Chat2AppViewController: MessagesViewController {
     
     func updateChatInfo(chatInfo: ChatInfo?){
         guard let chatInfo = chatInfo else { return }
-        if let avatarUrl = chatInfo.avatar {
-            self.addAvatarToNavBar(avatarUrl: avatarUrl)
-        }
+        let name = Chat2App.shared.operatorName
+        self.addAvatarToNavBar(avatarUrl: chatInfo.avatar, name: name)
     }
     
     //MARK: - Timer
@@ -87,23 +86,43 @@ class Chat2AppViewController: MessagesViewController {
         self.timer = nil
     }
     
-    func addAvatarToNavBar(avatarUrl: String){
+    func addAvatarToNavBar(avatarUrl: String?, name: String?) {
+        let container = UIStackView()
+        container.axis = .horizontal
+        container.alignment = .center
+        container.spacing = 8
+
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.widthAnchor.constraint(equalToConstant: 30.0).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
         imageView.kf.indicatorType = .activity
-        let url = URL(string: avatarUrl)
-        let size: CGSize = CGSize(width: 90.0, height: 90.0)
-        let processor = DownsamplingImageProcessor(size: size)
-                     |> RoundCornerImageProcessor(cornerRadius: 45)
-        imageView.kf.setImage(with: url, options: [.processor(processor), .cacheSerializer(FormatIndicatedCacheSerializer.png)])
-        imageView.contentMode = .scaleAspectFit
-        let contentView = UIView()
-        self.navigationItem.titleView = contentView
-        self.navigationItem.titleView?.addSubview(imageView)
-        imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 15.0
+
+        if let avatarUrl = avatarUrl, let url = URL(string: avatarUrl) {
+            let size: CGSize = CGSize(width: 90.0, height: 90.0)
+            let processor = DownsamplingImageProcessor(size: size)
+                         |> RoundCornerImageProcessor(cornerRadius: 45)
+            imageView.kf.setImage(with: url, options: [.processor(processor), .cacheSerializer(FormatIndicatedCacheSerializer.png)])
+        }
+
+        container.addArrangedSubview(imageView)
+
+        if let name = name {
+            if !name.isEmpty {
+                let label = UILabel()
+                label.text = name
+                label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+                label.textColor = .AppTextColor
+                container.addArrangedSubview(label)
+            }
+            
+        }
+
+        self.navigationItem.titleView = container
     }
     
     func setupStyle(){
