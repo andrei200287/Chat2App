@@ -51,11 +51,11 @@ public class Chat2App {
         case uk = "Ukrainian"
         case vi = "Vietnamese"
         
-        var langName: String {
+        public var langName: String {
             return self.rawValue
         }
         
-        var code: String {
+        public var code: String {
             switch self {
             case .ar: return "ar"
             case .bg: return "bg"
@@ -100,7 +100,7 @@ public class Chat2App {
     
     var apiKey: String = ""
     var appId: String = ""
-    var chatUserName: String = ""
+    public var chatUserName: String = ""
     public var chatUserId: String = ""
     public var userData: [String:String]? = nil
     public var accountStatus: AccountStatus? = nil
@@ -120,8 +120,8 @@ public class Chat2App {
             }
         }
     }
-    var apnsTokenString: String?
-    var locale: String {
+    public var apnsTokenString: String?
+    public var locale: String {
         Locale.current.identifier
     }
     weak var viewController: Chat2AppViewController?
