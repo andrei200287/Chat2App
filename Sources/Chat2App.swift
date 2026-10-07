@@ -101,9 +101,9 @@ public class Chat2App {
     var apiKey: String = ""
     var appId: String = ""
     var chatUserName: String = ""
-    var chatUserId: String = ""
-    var userData: [String:String]? = nil
-    var accountStatus: AccountStatus? = nil
+    public var chatUserId: String = ""
+    public var userData: [String:String]? = nil
+    public var accountStatus: AccountStatus? = nil
     public var operatorName: String = "Operator"
     public var firstMessageText: String = ""
     public var language: Language = .en
