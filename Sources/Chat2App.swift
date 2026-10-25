@@ -123,6 +123,7 @@ public class Chat2App {
     }
     public var didTapClosePushBanner: (()->())?
     public var didTapEnablePush: (()->())?
+    public var closeBurronTitle: String = "Close"
     public var pushBannerTitle: String = "Don’t miss a reply"
     public var pushBannerText: String = "Enable notifications to get notified when you receive a reply."
     

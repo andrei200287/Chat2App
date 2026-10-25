@@ -179,7 +179,7 @@ class Chat2AppViewController: MessagesViewController {
     }
 
     func addCloseButton(){
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(closeChat))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Chat2App.shared.closeBurronTitle, style: .done, target: self, action: #selector(closeChat))
     }
 
     //MARK: - Push banner
