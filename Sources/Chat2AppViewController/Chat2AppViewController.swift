@@ -52,6 +52,8 @@ class Chat2AppViewController: MessagesViewController {
     }
     
     var cancellableSet = Set<AnyCancellable>()
+    private var pushBannerView: PushEnableBannerView?
+    private var appliedPushBannerInset: CGFloat = 0
     
     func setupRx(){
         self.viewModel.$chatInfo.dropFirst().receive(on: RunLoop.main).sink{ [weak self] (chatInfo) in
@@ -141,6 +143,7 @@ class Chat2AppViewController: MessagesViewController {
         configureMessageInputBar()
         
         self.setupStyle()
+        self.showPushBannerIfNeeded()
         
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -167,8 +170,87 @@ class Chat2AppViewController: MessagesViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let pushBannerView = pushBannerView {
+            view.bringSubviewToFront(pushBannerView)
+        }
+        updatePushBannerInset()
+    }
+
     func addCloseButton(){
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(closeChat))
+    }
+
+    //MARK: - Push banner
+
+    func updatePushBannerVisibility() {
+        guard isViewLoaded else { return }
+        if Chat2App.shared.showEnablePushInSettings {
+            let wasHidden = pushBannerView == nil
+            showPushBannerIfNeeded()
+            guard wasHidden, let banner = pushBannerView else { return }
+            banner.alpha = 0
+            view.layoutIfNeeded()
+            updatePushBannerInset()
+            UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseInOut, .allowUserInteraction]) {
+                banner.alpha = 1
+            }
+        } else {
+            hidePushBanner(callCloseHandler: false)
+        }
+    }
+
+    private func showPushBannerIfNeeded() {
+        guard Chat2App.shared.showEnablePushInSettings else { return }
+        guard pushBannerView == nil else { return }
+
+        let banner = PushEnableBannerView(
+            title: Chat2App.shared.pushBannerTitle,
+            text: Chat2App.shared.pushBannerText
+        )
+        banner.onClose = { [weak self] in
+            self?.dismissPushBanner()
+        }
+        banner.onEnable = {
+            Chat2App.shared.didTapEnablePush?()
+        }
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(banner)
+        NSLayoutConstraint.activate([
+            banner.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            banner.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            banner.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        pushBannerView = banner
+    }
+
+    private func dismissPushBanner() {
+        hidePushBanner(callCloseHandler: true)
+    }
+
+    private func hidePushBanner(callCloseHandler: Bool) {
+        guard let banner = pushBannerView else { return }
+        pushBannerView = nil
+        appliedPushBannerInset = 0
+        UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseInOut, .allowUserInteraction]) {
+            banner.alpha = 0
+            self.messagesCollectionView.contentInset.top = 0
+            self.messagesCollectionView.verticalScrollIndicatorInsets.top = 0
+        } completion: { _ in
+            banner.removeFromSuperview()
+        }
+        if callCloseHandler {
+            Chat2App.shared.didTapClosePushBanner?()
+        }
+    }
+
+    private func updatePushBannerInset() {
+        let height = pushBannerView?.bounds.height ?? 0
+        guard abs(appliedPushBannerInset - height) > 0.5 else { return }
+        appliedPushBannerInset = height
+        messagesCollectionView.contentInset.top = height
+        messagesCollectionView.verticalScrollIndicatorInsets.top = height
     }
     
     @objc func closeChat(){

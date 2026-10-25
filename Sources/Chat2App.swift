@@ -109,6 +109,23 @@ public class Chat2App {
     public var language: Language = .en
     public var revenuecat_user_id: String = ""
     
+    public var showEnablePushInSettings: Bool = true {
+        didSet {
+            let apply: () -> Void = { [weak self] in
+                self?.viewController?.updatePushBannerVisibility()
+            }
+            if Thread.isMainThread {
+                apply()
+            } else {
+                DispatchQueue.main.async(execute: apply)
+            }
+        }
+    }
+    public var didTapClosePushBanner: (()->())?
+    public var didTapEnablePush: (()->())?
+    public var pushBannerTitle: String = "Don’t miss a reply"
+    public var pushBannerText: String = "Enable notifications to get notified when you receive a reply."
+    
     public var apnsToken: Data? {
         didSet {
             if let apnsToken = apnsToken {
